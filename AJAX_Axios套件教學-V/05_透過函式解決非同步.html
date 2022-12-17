@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>05_透過函式解決非同步</title>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script>
+			let arry = [];
+
+			axios.get('https://hexschool.github.io/ajaxHomework/data.json').then(function (response) {
+				arry = response.data;
+				console.log('資料有回傳了'); //1
+				renderData();
+			});
+
+			function renderData() {
+				console.log(arry); // 2
+				// 想要將裡面的資料渲染在網頁上也可以寫在這裡
+			}
+
+			console.log(arry); //3
+
+			// 執行結果為3 -> 1 -> 2
+			// 讓要呈現的東西都封裝在函式中，需要的時候再調用出來
+			// 好處就是確定拿到資料後再調用renderData的函示，來呈現結果
+		</script>
+	</head>
+	<body></body>
+</html>

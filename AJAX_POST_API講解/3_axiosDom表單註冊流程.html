@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>3_axiosDom表單註冊流程</title>
+		<!-- 載入axios cdn -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	</head>
+	<body>
+		<label for="account">帳號:</label>
+		<input type="text" class="account" name="account" id="account" />
+		<br />
+		<label for="password">密碼:</label>
+		<input type="text" class="password" name="password" id="password" />
+		<br />
+		<input type="button" value="送出" />
+		<h1></h1>
+	</body>
+	<script>
+		const account = document.querySelector('.account');
+		const password = document.querySelector('.password');
+		const send = document.querySelector('[type="button"]');
+
+		//當我點擊送出的時候要將輸入的帳號密碼發送請求給後台
+		send.addEventListener('click', (e) => {
+			callSignUp();
+		});
+
+		function callSignUp() {
+			// 如果帳號密碼沒輸入的話就提醒，接者return
+			if (account.value == '' || password.value == '') {
+				alert('請輸入帳號密碼');
+				return;
+			}
+			// 這裡面的帳密要改成input裡面的value
+			let obj = {
+				email: account.value,
+				password: password.value,
+			};
+			console.log(obj);
+			axios
+				.post('https://hexschool-tutorial.herokuapp.com/api/signup', obj)
+				.then((res) => {
+					在裡面再加入一些判斷;
+					if (response.data.message == '帳號註冊成功') {
+						alert('恭喜你，帳號註冊成功了喔');
+					} else {
+						alert('註冊帳號失敗，email可能已被註冊過');
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+
+			// 資料送出後始空間變空
+			account.value = '';
+			password.value = '';
+		}
+	</script>
+</html>

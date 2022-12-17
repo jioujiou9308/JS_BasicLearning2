@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<!-- 要注意的是只有設定name的property才會被送進formHandling裡面 -->
+		<form action="/formHandling" method="GET">
+			<label for="fullname">名字</label>
+			<input type="text" id="fullname" name="fullname" />
+			<label for="age">年齡</label>
+			<input type="text" id="age" name="age" />
+			<button type="submit">submit</button>
+		</form>
+	</body>
+</html>

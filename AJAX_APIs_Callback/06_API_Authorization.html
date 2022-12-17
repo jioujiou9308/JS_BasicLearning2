@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 載入axios cdn -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script>
+			// 這裡使用需要有 key 才能使用的api ，天氣的網站
+			let myKey = '3630b9e15ab242648c5d3e0e0bf98b49';
+
+			let city = 'Taipei';
+			let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${myKey}`;
+
+			axios.get(url).then((res) => {
+				console.log(res);
+			});
+
+			// async function getWeather() {
+			// 	let d = await fetch(url);
+			// 	let dj = await d.json();
+			// 	console.log(dj);
+			// }
+			// getWeather();
+		</script>
+	</head>
+	<body></body>
+</html>

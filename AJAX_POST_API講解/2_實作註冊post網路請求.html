@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<!-- 載入axios cdn -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script>
+			//https://hexschool-tutorial.herokuapp.com/api/signup
+			let obj = {
+				email: '123@test.com',
+				password: '123456',
+			};
+			axios
+				.post('https://hexschool-tutorial.herokuapp.com/api/signup', obj)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+
+			// 當我們發出網路請求時，obj就是我們要帶入的資料，post出去後了解api需要做的事情，並去比對obj帶入的資料是否符合
+		</script>
+	</head>
+	<body>
+		<a href="https://github.com/hexschool/nodejs_ajax_tutorial">本小節練習用 API 網址</a>
+		<p>注意，此範例僅供練習，並不會儲存用戶資料至資料庫(僅緩存)。</p>
+	</body>
+</html>

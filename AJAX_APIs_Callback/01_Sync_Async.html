@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>01_Sync_Async</title>
+	</head>
+	<script>
+		// async code 非同步執行
+		// js is single-thread programing language
+		console.log('start'); //1
+		setTimeout(() => {
+			console.log('here is the code');
+		}, 1000); //3
+		console.log('end'); //2
+	</script>
+	<body></body>
+</html>

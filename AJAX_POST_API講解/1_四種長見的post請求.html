@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>1_四種長線的post請求</title>
+		<script></script>
+	</head>
+	<body>
+		<h1>四種常見的post請求，content-type</h1>
+		<ul>
+			<li>1.application/x-www-form-urlencoded--類似用form表單發出的請求格式</li>
+			<li>2.application/json--axios預設的格式就是json</li>
+			<li>3.multipart/form-data--檔案(圖片、pdf等等)</li>
+			<li>4.text/plain--記事本</li>
+		</ul>
+		<p>
+			★注意在發出網路請求時EX:POST，記得資料傳出是在request中的 header & data 所以傳出的格式就很重要，如果與伺服器接收的格式不同，那就會接不到
+			★注意在串接別人的API資料的時候也要看清楚到底是什麼樣的格式
+		</p>
+	</body>
+</html>

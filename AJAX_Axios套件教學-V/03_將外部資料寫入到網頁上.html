@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>將外部資料寫入到網頁上</title>
+		<!-- 載入axios cdn -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script>
+			axios.get('https://hexschool.github.io/ajaxHomework/data.json').then((res) => {
+				const h1 = document.querySelector('h1');
+				const name = res.data[0].name;
+				console.log(name);
+				console.log(h1);
+				h1.textContent = name;
+			});
+		</script>
+	</head>
+	<body>
+		<h1></h1>
+	</body>
+</html>

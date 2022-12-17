@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>04_axios非同步觀念</title>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script>
+			let arry = [];
+
+			axios.get('https://hexschool.github.io/ajaxHomework/data.json').then(function (response) {
+				arry = response.data;
+				console.log('執行axios裡面的程式');
+			});
+
+			console.log(arry);
+			//得到結果卻是空值 []
+			// 因為axios再請求資料，資料還沒回傳過來，理所當然的 arry還沒接收到資料所以為空值
+			//以下為執行結果的順序
+			// 1.[]
+			// 2."執行axios裡面的程式"
+			// 3.[{...}]
+		</script>
+	</head>
+	<body></body>
+</html>

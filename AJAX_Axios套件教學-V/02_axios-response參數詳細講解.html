@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>axios-response參數詳細講解</title>
+		<!-- 載入axios cdn -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script>
+			axios.get('https://hexschool.github.io/ajaxHomework/data.json').then(function (response) {
+				console.log(response);
+				console.log(response.data); // 資料中的json資料
+				console.log(response.status); // 狀態碼 200為成功
+				console.log(response.statusText);
+				console.log(response.headers); //可以看回傳結果
+				console.log(response.config);
+			});
+		</script>
+	</head>
+	<body></body>
+</html>

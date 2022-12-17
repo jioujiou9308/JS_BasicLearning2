@@ -1,0 +1,9 @@
+{
+	"workbench.colorCustomizations": {
+		"activityBar.background": "#322E0C",
+		"titleBar.activeBackground": "#474010",
+		"titleBar.activeForeground": "#FBFAF0"
+	},
+	"livePreview.defaultPreviewPath": "/forEach/traning.html",
+	"liveServer.settings.port": 5501
+}
