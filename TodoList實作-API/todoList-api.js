@@ -1,118 +1,149 @@
-//NOTE   TODOLIST API 串接製作步驟
-//NOTE 1. 透過axios 搭配 API 設計註冊功能
-//NOTE 2. 抽出網址變數
-//NOTE 3. 透過 postman 設計網址請求
-//NOTE 4. 
-//NOTE
-//NOTE
-//NOTE
-//----------------------------------------------------
+const login = document.querySelector('.login');
+const logout = document.querySelector('.logout');
+const h1 = document.querySelector('.myH1');
 
+// 將重複的api拉出來
+const apiUrl = 'https://todoo.5xcamp.us';
 
-const apiUrl = `https://todoo.5xcamp.us`
-let token ="Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTg0Iiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjYwMjk0ODE5LCJleHAiOjE2NjE1OTA4MTksImp0aSI6ImFkOGU2MDI0LTAzZTgtNDM5YS04OTk3LTBlY2FjMTViZjRiYiJ9.QpCDO5zcbCmkJ55S9x6Bb2ntjcvfh02PUJbNgrKDQRk"
-//Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNTg0Iiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjYwMjk0ODE5LCJleHAiOjE2NjE1OTA4MTksImp0aSI6ImFkOGU2MDI0LTAzZTgtNDM5YS04OTk3LTBlY2FjMTViZjRiYiJ9.QpCDO5zcbCmkJ55S9x6Bb2ntjcvfh02PUJbNgrKDQRk
+//設置一個存放 token的地方
+let token = '';
 
-//NOTE 註冊 API
-function signUp(email,nickname,pwd){
-     axios.post(`${apiUrl}/users`,{
-       "user": {
-         "email": email,
-         "nickname": nickname,
-         "password": pwd
-       }
-     })
-          .then(response => console.log(response))
-          //axios的規則，要在error後加長response才看的到設定後的錯誤資訊
-          .catch(error =>console.log(error.response))
-}
-//在postman中註冊的格式使用 raw 的 json格式 這都是要先跟後端工程師溝通好，
-//因為有時候可能會使用form-data  或是 x-www-form-urlencoded
-
-
-//NOTE 登入 API
-function login(email,pwd){
-     axios.post(`${apiUrl}/users/sign_in`,{
-  "user": {
-    "email": email,
-    "password": pwd
-  }
-  //取出token
-  //辨別此使用者的資訊
-  //放在network headers 中response header 的 authorization
-}).then(res=>{
-     token = res.headers.authorization
-     console.log(res);
-})
-     .catch(error=>console.log(error.response))
+// 會員註冊功能
+function signUp(email, nickname, password) {
+	axios
+		.post(`${apiUrl}/users`, {
+			user: {
+				email: email,
+				nickname: nickname,
+				password: password,
+			},
+		})
+		.then((res) => {
+			console.log(res);
+		})
+		.catch((error) => {
+			console.log(error.response);
+		});
 }
 
-//NOTE 拿到我的待辦事項
-function getTodo(){
-     axios.get(`${apiUrl}/todos`,{
-          //當登入後夾帶token的方法
-          headers:{
-               'Authorization':token
-          }
-     })
-     .then(res=>console.log(res))
-     .catch(error=>console.log(error.response))
+// 會員登入
+function logIn() {
+	axios
+		.post(`${apiUrl}/users/sign_in`, {
+			user: {
+				email: '123@gmail.com',
+				password: '123456',
+			},
+		})
+		// 會員登入後就會拿到一個專屬於自己的token
+		.then((res) => {
+			// 如果再登入的時候使用這個，接下來的所有api都可以不用再多寫token，這裡就會自動帶入
+			// axios.defaults.headers.common['Authorization'] = res.headers.authorization;
+			token = res.headers.authorization;
+			// console.log(token);
+			h1.textContent = '登入成功';
+		})
+		.catch((error) => console.log(error.response));
 }
 
-//NOTE 新增TODO
-function addTodo(todo){
-     axios.post(`${apiUrl}/todos`,{
-          //要藉此api新增的內容
-  "todo": {
-    "content": todo
-  }
-  },{
-     //要記得攜帶header的token資訊不然會失敗
-          headers:{
-               'Authorization':token
-          }
-})
-     .then(res=>console.log(res))
-     .catch(error=>console.log(error.response))
+// 會員登出
+function logOut() {
+	axios
+		.delete(`${apiUrl}/users/sign_out`, {
+			headers: {
+				authorization: token,
+			},
+		})
+		.then((res) => {
+			h1.textContent = '';
+			alert('已成功登出');
+			// 不知道為什麼如果使用登入自動夾帶token的後不能連續的登入登出，但如果強制整理夜面就可以
+			location.reload();
+		})
+		.catch((error) => console.log(error.response));
 }
 
-//NOTE 修改 TODO
-function updateTodo(todo,todoId){
-     axios.put(`${apiUrl}/todos/${todoId}`,{
-  "todo": {
-    "content": todo
-  }
-  },{
-     //要記得攜帶header的token資訊不然會失敗
-          headers:{
-               'Authorization':token
-          }
-})
-     .then(res=>console.log(res))
-     .catch(error=>console.log(error.response))
+// 拿到會員的todoList 列表
+function getTodo() {
+	axios
+		.get(`${apiUrl}/todos`, {
+			headers: {
+				authorization: token,
+			},
+		})
+		.then((res) => console.log(res))
+		.catch((error) => console.log(error.response));
 }
 
-//NOTE 刪除 TODO
-function deleteTodo(todoId){
-     axios.delete(`${apiUrl}/todos/${todoId}`,{
-     //要記得攜帶header的token資訊不然會失敗
-          headers:{
-               'Authorization':token
-          }
-})
-     .then(res=>console.log(res))
-     .catch(error=>console.log(error.response))
+// 新增todo代辦事項
+function addTodo(content) {
+	axios
+		.post(
+			`${apiUrl}/todos`,
+			{
+				todo: {
+					content: content,
+				},
+			},
+			{
+				headers: {
+					authorization: token,
+				},
+			}
+		)
+		.then((res) => {
+			console.log(res);
+		})
+		.catch((error) => console.log(error.res));
 }
 
-//NOTE 更新 TODO 是否已完成
-function compoleteTodo(todoId){
-     //只是讓他自動更新沒有要帶入什麼參數所以要放空物件
-     axios.patch(`${apiUrl}/todos/${todoId}/toggle`,{},{
-     //要記得攜帶header的token資訊不然會失敗
-          headers:{
-               'Authorization':token
-          }
-})
-     .then(res=>console.log(res))
-     .catch(error=>console.log(error.response))
+// put 修改todolist中的內容
+function updateTodo(todo, todoId) {
+	axios
+		.put(
+			`${apiUrl}/todos/${todoId}`,
+			{
+				todo: {
+					content: todo,
+				},
+			},
+			{
+				headers: {
+					authorization: token,
+				},
+			}
+		)
+		.then((res) => console.log(res))
+		.catch((error) => console.log(error.response));
 }
+
+// 刪除todolist中的內容
+function deleteTodo(todoId) {
+	axios
+		.delete(`${apiUrl}/todos/${todoId}`, {
+			headers: {
+				authorization: token,
+			},
+		})
+		.then((res) => console.log(res))
+		.catch((error) => console.log(error.response));
+}
+
+// 切換tolist 是否完成，使用patch
+function toggleTodo(todoId) {
+	axios
+		.patch(
+			`${apiUrl}/todos/${todoId}/toggle`,
+			{},
+			{
+				headers: {
+					authorization: token,
+				},
+			}
+		)
+		.then((res) => console.log(res))
+		.catch((error) => console.log(error.response));
+}
+
+login.addEventListener('click', logIn);
+logout.addEventListener('click', logOut);
